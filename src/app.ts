@@ -108,7 +108,10 @@ const checkoutBooks = (customer: string, ...booksIds: number[]): string[] => {
   return titles;
 };
 
+<<<<<<< HEAD
 // args with "tuple" type
+=======
+>>>>>>> 7ffb008937b3d20f7f5af32b736d0eefc5d2a4a3
 const f = (...args: [number, string]): void => {
   console.log(args[0]);
   console.log(args[1]);
@@ -147,5 +150,8 @@ console.log(getBooksTitleOfCategory());
 console.log(getBooksTitleOfCategory(Category.CSS));
 
 console.log(checkoutBooks("Peter", 1, 2, 3));
+<<<<<<< HEAD
 
 f(5, "five");
+=======
+>>>>>>> 7ffb008937b3d20f7f5af32b736d0eefc5d2a4a3
