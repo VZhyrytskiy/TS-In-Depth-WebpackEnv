@@ -108,14 +108,30 @@ const checkoutBooks = (customer: string, ...booksIds: number[]): string[] => {
   return titles;
 };
 
-<<<<<<< HEAD
 // args with "tuple" type
-=======
->>>>>>> 7ffb008937b3d20f7f5af32b736d0eefc5d2a4a3
 const f = (...args: [number, string]): void => {
   console.log(args[0]);
   console.log(args[1]);
 };
+
+// Function Overloading
+function getTitles(author: string): string[];
+function getTitles(available: boolean): string[];
+function getTitles(param: string | boolean): string[] {
+  const books = getAllBooks();
+  switch (typeof param) {
+    case "string": {
+      return books
+        .filter(book => book.author === param)
+        .map(book => book.title);
+    }
+    case "boolean": {
+      return books
+        .filter(book => book.available === param)
+        .map(book => book.title);
+    }
+  }
+}
 
 // ==========================================
 // Task 01
@@ -150,8 +166,9 @@ console.log(getBooksTitleOfCategory());
 console.log(getBooksTitleOfCategory(Category.CSS));
 
 console.log(checkoutBooks("Peter", 1, 2, 3));
-<<<<<<< HEAD
 
 f(5, "five");
-=======
->>>>>>> 7ffb008937b3d20f7f5af32b736d0eefc5d2a4a3
+
+// Task 06
+console.log(getTitles(true));
+console.log(getTitles("Lea Verou"));
