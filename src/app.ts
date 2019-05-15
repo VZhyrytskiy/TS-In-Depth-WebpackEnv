@@ -165,6 +165,15 @@ const printBook = (book: Book): void => {
   console.log(`${book.title} by ${book.author}`);
 };
 
+class UniversityLibrarian implements Librarian {
+  name: string;
+  email: string;
+  department: string;
+  assistCustomer(custName: string): void {
+    console.log(`${this.name} is assist ${custName}`);
+  }
+}
+
 // ==========================================
 // Task 01
 logFirstAbailable(getAllBooks());
@@ -234,8 +243,13 @@ const favoriteAuthor: Author = {
 };
 
 const favoriteLibrarian: Librarian = {
-  name: 'Boris',
-  email: 'boris@epample.com',
+  name: "Boris",
+  email: "boris@epample.com",
   department: "Classical Literature",
-  assistCustomer: name => console.log(`some text ${name}`);
-}
+  assistCustomer: custName => console.log(` ${this.name} assist ${custName}`)
+};
+
+// Task 10
+const favoritLibrarian: Librarian = new UniversityLibrarian();
+favoritLibrarian.name = "Anna";
+favoritLibrarian.assistCustomer("Boris");
