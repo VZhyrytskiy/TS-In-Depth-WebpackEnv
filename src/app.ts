@@ -174,6 +174,34 @@ class UniversityLibrarian implements Librarian {
   }
 }
 
+class ReferenceItem {
+  // title: string;
+  // year: number;
+  // constructor(newTitle: string, newYear: number) {
+  //   console.log(`Creating a new ReferneceItem...`);
+  //   this.title = newTitle;
+  //   this.year = newYear;
+  // }
+
+  private _publisher: string;
+  static department: string = "Fiction Literature";
+  constructor(public title: string, private year: number) {
+    console.log(`Creating a new ReferneceItem...`);
+  }
+  get publisher(): string {
+    return this._publisher.toUpperCase();
+  }
+
+  set publisher(newPublisher: string) {
+    this._publisher = newPublisher;
+  }
+
+  printItem(): void {
+    console.log(`${this.title} was published in ${this.year}`);
+    console.log(`Department: ${ReferenceItem.department}`);
+  }
+}
+
 // ==========================================
 // Task 01
 logFirstAbailable(getAllBooks());
@@ -253,3 +281,10 @@ const favoriteLibrarian: Librarian = {
 const favoritLibrarian: Librarian = new UniversityLibrarian();
 favoritLibrarian.name = "Anna";
 favoritLibrarian.assistCustomer("Boris");
+
+// Task 11
+const ref: ReferenceItem = new ReferenceItem("RefefenceItem title", 2019);
+ref.printItem();
+
+ref.publisher = "Custom publisher";
+console.log(ref.publisher);
