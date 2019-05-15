@@ -58,6 +58,20 @@ interface Book {
   markDamage?: DamageLogger;
 }
 
+interface Person {
+  name: string;
+  email: string;
+}
+
+interface Author extends Person {
+  numBooksPublished: number;
+}
+
+interface Librarian extends Person {
+  department: string;
+  assistCustomer: (custName: string) => void;
+}
+
 const getAllBooks = (): Book[] => {
   return books;
 };
@@ -211,3 +225,17 @@ const logDamage: DamageLogger = reason =>
   console.log(`Damage reported ${reason}`);
 
 logDamage("Some damage description");
+
+// Task 09
+const favoriteAuthor: Author = {
+  name: "Anna",
+  email: "anna@example.com",
+  numBooksPublished: 12
+};
+
+const favoriteLibrarian: Librarian = {
+  name: 'Boris',
+  email: 'boris@epample.com',
+  department: "Classical Literature",
+  assistCustomer: name => console.log(`some text ${name}`);
+}
