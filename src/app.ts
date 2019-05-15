@@ -174,7 +174,7 @@ class UniversityLibrarian implements Librarian {
   }
 }
 
-class ReferenceItem {
+abstract class ReferenceItem {
   // title: string;
   // year: number;
   // constructor(newTitle: string, newYear: number) {
@@ -200,6 +200,8 @@ class ReferenceItem {
     console.log(`${this.title} was published in ${this.year}`);
     console.log(`Department: ${ReferenceItem.department}`);
   }
+
+  abstract printCitation(): void;
 }
 
 class Enciclopedia extends ReferenceItem {
@@ -210,6 +212,9 @@ class Enciclopedia extends ReferenceItem {
   printItem(): void {
     super.printItem();
     console.log(`Edition: ${this.edition} (${this.year})`);
+  }
+  printCitation() {
+    console.log(`${this.title + ": " + this.year}`);
   }
 }
 
@@ -294,13 +299,16 @@ favoritLibrarian.name = "Anna";
 favoritLibrarian.assistCustomer("Boris");
 
 // Task 11
-const ref: ReferenceItem = new ReferenceItem("RefefenceItem title", 2019);
-ref.printItem();
+// const ref: ReferenceItem = new ReferenceItem("RefefenceItem title", 2019);
+// ref.printItem();
 
-ref.publisher = "Custom publisher";
-console.log(ref.publisher);
+// ref.publisher = "Custom publisher";
+// console.log(ref.publisher);
 
 // Task 12
 const refBook: Enciclopedia = new Enciclopedia("WorldPress", 2000, 10);
 refBook.printItem();
 console.log(refBook);
+
+//Task 13
+refBook.printCitation();
