@@ -185,7 +185,7 @@ class ReferenceItem {
 
   private _publisher: string;
   static department: string = "Fiction Literature";
-  constructor(public title: string, private year: number) {
+  constructor(public title: string, protected year: number) {
     console.log(`Creating a new ReferneceItem...`);
   }
   get publisher(): string {
@@ -199,6 +199,17 @@ class ReferenceItem {
   printItem(): void {
     console.log(`${this.title} was published in ${this.year}`);
     console.log(`Department: ${ReferenceItem.department}`);
+  }
+}
+
+class Enciclopedia extends ReferenceItem {
+  constructor(newTitle: string, newYear: number, public edition: number) {
+    super(newTitle, newYear);
+  }
+
+  printItem(): void {
+    super.printItem();
+    console.log(`Edition: ${this.edition} (${this.year})`);
   }
 }
 
@@ -288,3 +299,8 @@ ref.printItem();
 
 ref.publisher = "Custom publisher";
 console.log(ref.publisher);
+
+// Task 12
+const refBook: Enciclopedia = new Enciclopedia("WorldPress", 2000, 10);
+refBook.printItem();
+console.log(refBook);
