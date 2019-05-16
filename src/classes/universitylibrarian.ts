@@ -1,4 +1,4 @@
-import * as Interfaces from "../NamespaceDemo/interfaces";
+import * as Interfaces from "../interfaces";
 
 class UniversityLibrarian implements Interfaces.Librarian {
   name: string;

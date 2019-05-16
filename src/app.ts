@@ -1,34 +1,36 @@
-import { Category } from './NamespaceDemo/enums';
-import { Author, Book, Librarian, Logger } from './NamespaceDemo/interfaces';
-import { ReferenceItem, UniversityLibrarian} from './classes';
-import RefBook from "./classes/encyclopedia"
+import { Category } from "./enums";
+import { Author, Book, Librarian, Logger, Magazine } from "./interfaces";
+import { ReferenceItem, UniversityLibrarian, Shelf } from "./classes";
+import RefBook from "./classes/encyclopedia";
+import { purge } from "./lib/utility-functions";
 
-showHello('greeting', 'TypeScript'); 
+showHello("greeting", "TypeScript");
 
-function showHello(divName:string, name:string) {
-  const elt = document.getElementById(divName); 
-  elt.innerText = `Hello from ${name}`; 
+function showHello(divName: string, name: string) {
+  const elt = document.getElementById(divName);
+  elt.innerText = `Hello from ${name}`;
 }
 
 // -----------------------------------------------------
 
 // ----------------------------------------------------- Task 2
 
-
-function getBookTitlesByCategory(category: Category = Category.JavaScript): Array<string> {
+function getBookTitlesByCategory(
+  category: Category = Category.JavaScript
+): Array<string> {
   const books: any[] = getAllBooks();
   const titles: string[] = [];
-  for(const book of books) {    
+  for (const book of books) {
     if (book.category === category) {
       titles.push(book.title);
     }
   }
-  
+
   return titles;
 }
 
 function logBookTitles(titles: string[]): void {
-  for(const title of titles) {
+  for (const title of titles) {
     console.log(title);
   }
 }
@@ -36,44 +38,43 @@ function logBookTitles(titles: string[]): void {
 // ----------------------------------- Task 1
 
 function getAllBooks(): Book[] {
-  let books: Book[] = 
-  [ 
+  let books: Book[] = [
     {
       id: 1,
-      title: 'Refactoring JavaScript', 
-      author: 'Evan Burchard', 
+      title: "Refactoring JavaScript",
+      author: "Evan Burchard",
       available: true,
       category: Category.JavaScript
-    },  
+    },
     {
       id: 2,
-      title: 'JavaScript Testing', 
-      author: 'Liang Yuxian Eugene', 
+      title: "JavaScript Testing",
+      author: "Liang Yuxian Eugene",
       available: false,
       category: Category.JavaScript
-    },  
+    },
     {
       id: 3,
-      title: 'CSS Secrets', 
-      author: 'Lea Verou', 
+      title: "CSS Secrets",
+      author: "Lea Verou",
       available: true,
-      category: Category.CSS      
-    },  
+      category: Category.CSS
+    },
     {
       id: 4,
-      title: 'Mastering JavaScript Object-Oriented Programming',
-      author: 'Andrea Chiarelli', 
+      title: "Mastering JavaScript Object-Oriented Programming",
+      author: "Andrea Chiarelli",
       available: true,
       category: Category.TypeScript
     }
-  ]
-  return books; 
+  ];
+  return books;
 }
 
 function logFirstAvailable(books: any[] = getAllBooks()): void {
   const numberOfBooks: number = books.length;
-  let title: string = '';
-  for(const book of books) {
+  let title: string = "";
+  for (const book of books) {
     if (book.available) {
       title = book.title;
       break;
@@ -86,7 +87,7 @@ function logFirstAvailable(books: any[] = getAllBooks()): void {
 //-------------------------------------------------Task 03
 function getBookById(id: number): Book {
   let books = getAllBooks();
-  
+
   return books.find(book => book.id === id);
 }
 
@@ -113,12 +114,12 @@ function checkoutBooks(customer: string, ...bookIDs: number[]): string[] {
   console.log(`Customer: ${customer}`);
   let availableBooks: string[] = [];
 
-  bookIDs.forEach((id) => {
+  bookIDs.forEach(id => {
     const book = getBookById(id);
     if (book && book.available) {
-      availableBooks.push(book.title);   
+      availableBooks.push(book.title);
     }
-  })
+  });
 
   return availableBooks;
 }
@@ -131,18 +132,21 @@ function getTitles(...args: any[]): string[] {
   const books = getAllBooks();
   if (args.length == 0) {
     return [];
-  }
-  else if (args.length == 1) {
-    if (typeof args[0] === 'string') {
-      return books.filter(book => book.author === args[0]).map(book => book.title);
+  } else if (args.length == 1) {
+    if (typeof args[0] === "string") {
+      return books
+        .filter(book => book.author === args[0])
+        .map(book => book.title);
+    } else if (typeof args[0] === "boolean") {
+      return books
+        .filter(book => book.available === args[0])
+        .map(book => book.title);
     }
-    else if (typeof args[0] === 'boolean') {
-      return books.filter(book => book.available === args[0]).map(book => book.title);
-    }
-  }
-  else if (args.length == 2) {
-    if (typeof args[0] === 'number' && args[1] === 'boolean') {
-      return books.filter(book => book.available === args[1] && book.id === args[0]).map(book => book.title);
+  } else if (args.length == 2) {
+    if (typeof args[0] === "number" && args[1] === "boolean") {
+      return books
+        .filter(book => book.available === args[1] && book.id === args[0])
+        .map(book => book.title);
     }
   }
 }
@@ -204,16 +208,15 @@ function printBook(book: Book): void {
 //   category: Category.CSS,
 //   pages: 200,
 //   markDamaged: (reason: string) => console.log(`Damaged: ${reason}`)
-// } 
+// }
 
 // printBook(myBook);
 // myBook.markDamaged("missing back cover");
 
 // Task 08
- const logDamage: Logger = reason => 
-   console.log(`Damaged: ${reason}`);
+const logDamage: Logger = reason => console.log(`Damaged: ${reason}`);
 
- logDamage("missing book cover");
+logDamage("missing book cover");
 
 // Task 09
 // const favoriteAuthor: Author = {
@@ -237,8 +240,67 @@ function printBook(book: Book): void {
 
 // Task 11-13
 
-const ref: ReferenceItem = new RefBook("TypeScript in Depth", 2019, 3);
-ref.printItem();
-ref.publisher = 'Random Publisher';
-console.log(ref.publisher);
-ref.printCitation();
+// const ref: ReferenceItem = new RefBook("TypeScript in Depth", 2019, 3);
+// ref.printItem();
+// ref.publisher = 'Random Publisher';
+// console.log(ref.publisher);
+// ref.printCitation();
+
+//Task 18-19
+
+const inventory: Array<Book> = [
+  {
+    id: 10,
+    title: "The C Programming Language",
+    author: "K & R",
+    available: true,
+    category: Category.Software
+  },
+  {
+    id: 11,
+    title: "Code Complete",
+    author: "Steve McConnell",
+    available: true,
+    category: Category.Software
+  },
+  {
+    id: 12,
+    title: "8-Bit Graphics with Cobol",
+    author: "A. B.",
+    available: true,
+    category: Category.Software
+  },
+  {
+    id: 13,
+    title: "Cool autoexec.bat Scripts!",
+    author: "C. D.",
+    available: true,
+    category: Category.Software
+  }
+];
+
+// const books: Array<Book> = purge(inventory)
+
+// console.log(books);
+
+// const nums: number[] = purge([1, 2, 3, 4]);
+// console.log(nums);
+
+const bookShelf = new Shelf<Book>();
+inventory.forEach(book => bookShelf.add(book));
+const firstBook = bookShelf.getFirst();
+console.log(firstBook);
+
+const magazines: Array<Magazine> = [
+  { title: "Programming Language Monthly", publisher: "Code Mags" },
+  { title: "Literary Fiction Quarterly", publisher: "College Press" },
+  { title: "Five Points", publisher: "GSU" }
+];
+
+const magazineShelf = new Shelf<Magazine>();
+magazines.forEach(m => magazineShelf.add(m));
+console.log(magazineShelf.getFirst());
+
+//Task 20
+magazineShelf.printTitles();
+console.log(magazineShelf.find("Five Points"));

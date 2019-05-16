@@ -3,7 +3,8 @@ enum Category {
   CSS,
   HTML,
   TypeScript,
-  Angular
+  Angular,
+  Software
 }
 
 export { Category };
