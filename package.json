@@ -7,7 +7,9 @@
     "start": "webpack-dev-server --open",
     "build": "webpack --config webpack.config.js",
     "watch": "webpack --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "tsc NamespaceDemo/app.ts --target ES5",
+    "compileBundle": " tsc app.ts --target ES5 --outFile bundle.js"
   },
   "keywords": [],
   "author": "",

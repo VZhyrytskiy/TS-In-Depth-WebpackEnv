@@ -1,16 +1,19 @@
+import { Category } from "./enums";
+import { Book, Logger, Author, Librarian, Magazine } from "./interfaces";
+import {
+  UniversityLibrarian,
+  ReferenceItem,
+  Encyclopedia as RefBook,
+  Shelf
+} from "./classes";
+
+import { purge } from "./lib/utility-functions";
+
 showHello("greeting", "TypeScript");
 
 function showHello(divName: string, name: string): void {
   const elt = document.getElementById(divName);
   elt.innerText = `Hello from ${name}`;
-}
-
-enum Category {
-  JavaScript,
-  CSS,
-  HTML,
-  TypeScript,
-  Angular
 }
 
 let books: Book[] = [
@@ -44,33 +47,36 @@ let books: Book[] = [
   }
 ];
 
-interface DamageLogger {
-  (reason: string): void;
-}
-
-interface Book {
-  id: number;
-  title: string;
-  author: string;
-  available: boolean;
-  category: Category;
-  pages?: number;
-  markDamage?: DamageLogger;
-}
-
-interface Person {
-  name: string;
-  email: string;
-}
-
-interface Author extends Person {
-  numBooksPublished: number;
-}
-
-interface Librarian extends Person {
-  department: string;
-  assistCustomer: (custName: string) => void;
-}
+let inventory: Book[] = [
+  {
+    id: 10,
+    title: "The C Programming Language",
+    author: "K & R",
+    available: true,
+    category: Category.Software
+  },
+  {
+    id: 11,
+    title: "Code Complete",
+    author: "Steve McConnell",
+    available: true,
+    category: Category.Software
+  },
+  {
+    id: 12,
+    title: "8-Bit Graphics with Cobol",
+    author: "A. B.",
+    available: true,
+    category: Category.Software
+  },
+  {
+    id: 13,
+    title: "Cool autoexec.bat Scripts!",
+    author: "C. D.",
+    available: true,
+    category: Category.Software
+  }
+];
 
 const getAllBooks = (): Book[] => {
   return books;
@@ -165,59 +171,6 @@ const printBook = (book: Book): void => {
   console.log(`${book.title} by ${book.author}`);
 };
 
-class UniversityLibrarian implements Librarian {
-  name: string;
-  email: string;
-  department: string;
-  assistCustomer(custName: string): void {
-    console.log(`${this.name} is assist ${custName}`);
-  }
-}
-
-abstract class ReferenceItem {
-  // title: string;
-  // year: number;
-  // constructor(newTitle: string, newYear: number) {
-  //   console.log(`Creating a new ReferneceItem...`);
-  //   this.title = newTitle;
-  //   this.year = newYear;
-  // }
-
-  private _publisher: string;
-  static department: string = "Fiction Literature";
-  constructor(public title: string, protected year: number) {
-    console.log(`Creating a new ReferneceItem...`);
-  }
-  get publisher(): string {
-    return this._publisher.toUpperCase();
-  }
-
-  set publisher(newPublisher: string) {
-    this._publisher = newPublisher;
-  }
-
-  printItem(): void {
-    console.log(`${this.title} was published in ${this.year}`);
-    console.log(`Department: ${ReferenceItem.department}`);
-  }
-
-  abstract printCitation(): void;
-}
-
-class Enciclopedia extends ReferenceItem {
-  constructor(newTitle: string, newYear: number, public edition: number) {
-    super(newTitle, newYear);
-  }
-
-  printItem(): void {
-    super.printItem();
-    console.log(`Edition: ${this.edition} (${this.year})`);
-  }
-  printCitation() {
-    console.log(`${this.title + ": " + this.year}`);
-  }
-}
-
 // ==========================================
 // Task 01
 logFirstAbailable(getAllBooks());
@@ -274,8 +227,7 @@ printBook(myBook);
 myBook.markDamage("missing back cover");
 
 // Task 08
-const logDamage: DamageLogger = reason =>
-  console.log(`Damage reported ${reason}`);
+const logDamage: Logger = reason => console.log(`Damage reported ${reason}`);
 
 logDamage("Some damage description");
 
@@ -290,7 +242,9 @@ const favoriteLibrarian: Librarian = {
   name: "Boris",
   email: "boris@epample.com",
   department: "Classical Literature",
-  assistCustomer: custName => console.log(` ${this.name} assist ${custName}`)
+  assistCustomer(custName) {
+    console.log(` ${this.name} assist ${custName}`);
+  }
 };
 
 // Task 10
@@ -299,16 +253,68 @@ favoritLibrarian.name = "Anna";
 favoritLibrarian.assistCustomer("Boris");
 
 // Task 11
-// const ref: ReferenceItem = new ReferenceItem("RefefenceItem title", 2019);
+// const ref: ReferenceItem = new ReferenceItem(ReferenceItem title", 2019);
 // ref.printItem();
 
 // ref.publisher = "Custom publisher";
 // console.log(ref.publisher);
 
 // Task 12
-const refBook: Enciclopedia = new Enciclopedia("WorldPress", 2000, 10);
+const refBook: RefBook = new RefBook("WorldPress", 2000, 10);
 refBook.printItem();
 console.log(refBook);
 
 //Task 13
 refBook.printCitation();
+
+class User {
+  private isTeacher: boolean;
+  // protected - accessible only within the class or extended class
+
+  constructor(public name: string, protected age: number = 25) {}
+
+  get getAge(): number {
+    return this.age;
+  }
+
+  public set setTitle(title: boolean) {
+    //   private - accessible within class
+    this.isTeacher = title;
+    console.log(this.isTeacher);
+  }
+}
+
+const user = new User("Roman");
+
+console.log(user);
+console.log(user.getAge);
+user.setTitle = true;
+
+// Task 18
+
+// const books1: Array<Book> = purge<Book>(inventory);
+// console.log(books1);
+
+// const nums: number[] = purge<number>([1, 2, 3, 4]);
+// console.log(nums);
+
+// Task 19
+const bookShelf: Shelf<Book> = new Shelf<Book>();
+
+inventory.forEach(book => bookShelf.add(book));
+const firsBook: Book = bookShelf.getFirst();
+console.log(firsBook);
+
+const magazines: Array<Magazine> = [
+  { title: "Programming Language Monthly", publisher: "Code Mags" },
+  { title: "Literary Fiction Quarterly", publisher: "College Press" },
+  { title: "Five Points", publisher: "GSU" }
+];
+
+const magazineShelf: Shelf<Magazine> = new Shelf<Magazine>();
+
+magazines.forEach(mag => magazineShelf.add(mag));
+const firstMag: Magazine = magazineShelf.getFirst();
+console.log(firstMag);
+
+console.log(magazineShelf.find("Five Points"));
