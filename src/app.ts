@@ -1,3 +1,8 @@
+import { Category } from './NamespaceDemo/enums';
+import { Author, Book, Librarian, Logger } from './NamespaceDemo/interfaces';
+import { ReferenceItem, UniversityLibrarian} from './classes';
+import RefBook from "./classes/encyclopedia"
+
 showHello('greeting', 'TypeScript'); 
 
 function showHello(divName:string, name:string) {
@@ -6,23 +11,6 @@ function showHello(divName:string, name:string) {
 }
 
 // -----------------------------------------------------
-enum Category {
-  JavaScript,
-  CSS,
-  HTML,
-  TypeScript,
-  Angular
-}
-
-interface Book {
-  id: number;
-  title: string;
-  author: string;
-  available: boolean;
-  category: Category;
-  pages?: number;
-  markDamaged?: (reason: string) => void;
-}
 
 // ----------------------------------------------------- Task 2
 
@@ -208,15 +196,49 @@ function printBook(book: Book): void {
 // console.log(checkedOutBooks);
 
 //Task 07
-const myBook: Book = {
-  id: 5,
-  title: 'Colors, Backgrounds, and Gradients',
-  author: 'Eric A. Meyer',
-  available: true,
-  category: Category.CSS,
-  pages: 200,
-  markDamaged: (reason: string) => console.log(`Damaged: ${reason}`)
-} 
+// const myBook: Book = {
+//   id: 5,
+//   title: 'Colors, Backgrounds, and Gradients',
+//   author: 'Eric A. Meyer',
+//   available: true,
+//   category: Category.CSS,
+//   pages: 200,
+//   markDamaged: (reason: string) => console.log(`Damaged: ${reason}`)
+// } 
 
-printBook(myBook);
-myBook.markDamaged("missing back cover");
+// printBook(myBook);
+// myBook.markDamaged("missing back cover");
+
+// Task 08
+ const logDamage: Logger = reason => 
+   console.log(`Damaged: ${reason}`);
+
+ logDamage("missing book cover");
+
+// Task 09
+// const favoriteAuthor: Author = {
+//   email: "gmartin@gmail.com",
+//   name: "George Martin",
+//   numBooksPublished: 15
+// }
+
+// const favoriteLibrarian: Librarian = {
+//   name: "Anna",
+//   email: "anna@gmail.com",
+//   assistCustomer: name => console.log(`Hello, ${name}!`),
+//   department: "Fantasy"
+// }
+
+// Task 10
+
+// const favoriteLibrarian: Librarian = new UniversityLibrarian();
+// favoriteLibrarian.name = "Boris";
+// favoriteLibrarian.assistCustomer("Anna");
+
+// Task 11-13
+
+const ref: ReferenceItem = new RefBook("TypeScript in Depth", 2019, 3);
+ref.printItem();
+ref.publisher = 'Random Publisher';
+console.log(ref.publisher);
+ref.printCitation();
