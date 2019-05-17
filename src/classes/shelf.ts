@@ -1,7 +1,7 @@
 import { ShelfItem } from "../interfaces";
 
 export default class Shelf<T extends ShelfItem> {
-  private _items: Array<T> = [];
+  private _items: Array<T> = new Array<T>();
 
   add(item: T): void {
     this._items.push(item);

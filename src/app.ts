@@ -1,5 +1,6 @@
 import { Category } from "./enums";
 import { Book, Logger, Author, Librarian, Magazine } from "./interfaces";
+import { books, inventory } from "./data";
 import {
   UniversityLibrarian,
   ReferenceItem,
@@ -16,71 +17,7 @@ function showHello(divName: string, name: string): void {
   elt.innerText = `Hello from ${name}`;
 }
 
-let books: Book[] = [
-  {
-    id: 1,
-    title: "Refactoring JavaScript",
-    author: "Evan Burchard",
-    available: true,
-    category: Category.JavaScript
-  },
-  {
-    id: 2,
-    title: "JavaScript Testing",
-    author: "Liang Yuxian Eugene",
-    available: false,
-    category: Category.JavaScript
-  },
-  {
-    id: 3,
-    title: "CSS Secrets",
-    author: "Lea Verou",
-    available: true,
-    category: Category.CSS
-  },
-  {
-    id: 4,
-    title: "Mastering JavaScript Object-Oriented Programming",
-    author: "Andrea Chiarelli",
-    available: true,
-    category: Category.JavaScript
-  }
-];
-
-let inventory: Book[] = [
-  {
-    id: 10,
-    title: "The C Programming Language",
-    author: "K & R",
-    available: true,
-    category: Category.Software
-  },
-  {
-    id: 11,
-    title: "Code Complete",
-    author: "Steve McConnell",
-    available: true,
-    category: Category.Software
-  },
-  {
-    id: 12,
-    title: "8-Bit Graphics with Cobol",
-    author: "A. B.",
-    available: true,
-    category: Category.Software
-  },
-  {
-    id: 13,
-    title: "Cool autoexec.bat Scripts!",
-    author: "C. D.",
-    available: true,
-    category: Category.Software
-  }
-];
-
-const getAllBooks = (): Book[] => {
-  return books;
-};
+const getAllBooks = (): Book[] => books;
 
 const logFirstAbailable = (books: Book[] = getAllBooks()): void => {
   const numberOfBooks: number = books.length;
@@ -95,9 +32,7 @@ const logFirstAbailable = (books: Book[] = getAllBooks()): void => {
   console.log(`Total of First Available Books ${titleFirstAvailable}`);
 };
 
-const getBooksTitleOfCategory = (
-  category: Category = Category.JavaScript
-): Array<string> => {
+const getBooksTitleOfCategory = (category: Category): Array<string> => {
   const books: Book[] = getAllBooks();
   const titles: string[] = [];
 
@@ -200,7 +135,6 @@ console.log(myId);
 // createCustomer("Ivan");
 // createCustomer("Ivan", 22);
 // createCustomer("Ivan", 22, "Las Vegas");
-console.log(getBooksTitleOfCategory());
 console.log(getBooksTitleOfCategory(Category.CSS));
 
 console.log(checkoutBooks("Peter", 1, 2, 3));

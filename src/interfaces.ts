@@ -14,8 +14,12 @@ interface Book {
   markDamage?: DamageLogger;
 }
 
+// if we define interface twice, typescript merges them into one
 interface Person {
   name: string;
+}
+// define Person second time
+interface Person {
   email: string;
 }
 
@@ -25,7 +29,7 @@ interface Author extends Person {
 
 interface Librarian extends Person {
   department: string;
-  assistCustomer: (custName: string) => void;
+  assistCustomer: (name: string) => void;
 }
 
 interface Magazine {
