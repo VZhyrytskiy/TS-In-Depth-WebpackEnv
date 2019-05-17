@@ -2,7 +2,15 @@ import { Category } from "./enums";
 import { Author, Book, Librarian, Logger, Magazine } from "./interfaces";
 import { ReferenceItem, UniversityLibrarian, Shelf } from "./classes";
 import RefBook from "./classes/encyclopedia";
-import { purge } from "./lib/utility-functions";
+import {
+  getAllBooks,
+  purge,
+  getBookTitlesByCategory,
+  getBooksByCategory,
+  logCategorySearch,
+  getBooksByCategoryPromise,
+  logSearchResults
+} from "./lib/utility-functions";
 import Encyclopedia from "./classes/encyclopedia";
 
 showHello("greeting", "TypeScript");
@@ -16,20 +24,6 @@ function showHello(divName: string, name: string) {
 
 // ----------------------------------------------------- Task 2
 
-function getBookTitlesByCategory(
-  category: Category = Category.JavaScript
-): Array<string> {
-  const books: any[] = getAllBooks();
-  const titles: string[] = [];
-  for (const book of books) {
-    if (book.category === category) {
-      titles.push(book.title);
-    }
-  }
-
-  return titles;
-}
-
 function logBookTitles(titles: string[]): void {
   for (const title of titles) {
     console.log(title);
@@ -37,40 +31,6 @@ function logBookTitles(titles: string[]): void {
 }
 
 // ----------------------------------- Task 1
-
-function getAllBooks(): Book[] {
-  let books: Book[] = [
-    {
-      id: 1,
-      title: "Refactoring JavaScript",
-      author: "Evan Burchard",
-      available: true,
-      category: Category.JavaScript
-    },
-    {
-      id: 2,
-      title: "JavaScript Testing",
-      author: "Liang Yuxian Eugene",
-      available: false,
-      category: Category.JavaScript
-    },
-    {
-      id: 3,
-      title: "CSS Secrets",
-      author: "Lea Verou",
-      available: true,
-      category: Category.CSS
-    },
-    {
-      id: 4,
-      title: "Mastering JavaScript Object-Oriented Programming",
-      author: "Andrea Chiarelli",
-      available: true,
-      category: Category.TypeScript
-    }
-  ];
-  return books;
-}
 
 function logFirstAvailable(books: any[] = getAllBooks()): void {
   const numberOfBooks: number = books.length;
@@ -327,3 +287,26 @@ function printBook(book: Book): void {
 // flib.name = "Anna";
 // flib.assistCustomer("Boris");
 
+//Task 28
+// getBooksByCategory(Category.JavaScript, logCategorySearch);
+// getBooksByCategory(Category.Software, logCategorySearch);
+
+//Task 29
+// getBooksByCategoryPromise(Category.JavaScript)
+//   .then(titles => console.log(titles))
+//   .catch(err => console.log(err));
+
+//   getBooksByCategoryPromise(Category.Software)
+//   .then(titles => console.log(titles))
+//   .catch(err => console.log(err));
+
+console.log('Beginning search...');
+logSearchResults(Category.JavaScript)
+    .catch(reason => console.log(reason));
+console.log('Search submitted...');
+
+
+console.log('Beginning search...');
+logSearchResults(Category.Software)
+    .catch(reason => console.log(reason));
+console.log('Search submitted...');
