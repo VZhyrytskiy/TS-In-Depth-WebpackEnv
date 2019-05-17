@@ -3,6 +3,7 @@ import { Author, Book, Librarian, Logger, Magazine } from "./interfaces";
 import { ReferenceItem, UniversityLibrarian, Shelf } from "./classes";
 import RefBook from "./classes/encyclopedia";
 import { purge } from "./lib/utility-functions";
+import Encyclopedia from "./classes/encyclopedia";
 
 showHello("greeting", "TypeScript");
 
@@ -214,9 +215,9 @@ function printBook(book: Book): void {
 // myBook.markDamaged("missing back cover");
 
 // Task 08
-const logDamage: Logger = reason => console.log(`Damaged: ${reason}`);
+// const logDamage: Logger = reason => console.log(`Damaged: ${reason}`);
 
-logDamage("missing book cover");
+// logDamage("missing book cover");
 
 // Task 09
 // const favoriteAuthor: Author = {
@@ -237,6 +238,8 @@ logDamage("missing book cover");
 // const favoriteLibrarian: Librarian = new UniversityLibrarian();
 // favoriteLibrarian.name = "Boris";
 // favoriteLibrarian.assistCustomer("Anna");
+// console.log(favoriteLibrarian);
+// favoriteLibrarian['printLibrarian']();
 
 // Task 11-13
 
@@ -248,36 +251,36 @@ logDamage("missing book cover");
 
 //Task 18-19
 
-const inventory: Array<Book> = [
-  {
-    id: 10,
-    title: "The C Programming Language",
-    author: "K & R",
-    available: true,
-    category: Category.Software
-  },
-  {
-    id: 11,
-    title: "Code Complete",
-    author: "Steve McConnell",
-    available: true,
-    category: Category.Software
-  },
-  {
-    id: 12,
-    title: "8-Bit Graphics with Cobol",
-    author: "A. B.",
-    available: true,
-    category: Category.Software
-  },
-  {
-    id: 13,
-    title: "Cool autoexec.bat Scripts!",
-    author: "C. D.",
-    available: true,
-    category: Category.Software
-  }
-];
+// const inventory: Array<Book> = [
+//   {
+//     id: 10,
+//     title: "The C Programming Language",
+//     author: "K & R",
+//     available: true,
+//     category: Category.Software
+//   },
+//   {
+//     id: 11,
+//     title: "Code Complete",
+//     author: "Steve McConnell",
+//     available: true,
+//     category: Category.Software
+//   },
+//   {
+//     id: 12,
+//     title: "8-Bit Graphics with Cobol",
+//     author: "A. B.",
+//     available: true,
+//     category: Category.Software
+//   },
+//   {
+//     id: 13,
+//     title: "Cool autoexec.bat Scripts!",
+//     author: "C. D.",
+//     available: true,
+//     category: Category.Software
+//   }
+// ];
 
 // const books: Array<Book> = purge(inventory)
 
@@ -286,21 +289,41 @@ const inventory: Array<Book> = [
 // const nums: number[] = purge([1, 2, 3, 4]);
 // console.log(nums);
 
-const bookShelf = new Shelf<Book>();
-inventory.forEach(book => bookShelf.add(book));
-const firstBook = bookShelf.getFirst();
-console.log(firstBook);
+// const bookShelf = new Shelf<Book>();
+// inventory.forEach(book => bookShelf.add(book));
+// const firstBook = bookShelf.getFirst();
+// console.log(firstBook);
 
-const magazines: Array<Magazine> = [
-  { title: "Programming Language Monthly", publisher: "Code Mags" },
-  { title: "Literary Fiction Quarterly", publisher: "College Press" },
-  { title: "Five Points", publisher: "GSU" }
-];
+// const magazines: Array<Magazine> = [
+//   { title: "Programming Language Monthly", publisher: "Code Mags" },
+//   { title: "Literary Fiction Quarterly", publisher: "College Press" },
+//   { title: "Five Points", publisher: "GSU" }
+// ];
 
-const magazineShelf = new Shelf<Magazine>();
-magazines.forEach(m => magazineShelf.add(m));
-console.log(magazineShelf.getFirst());
+// const magazineShelf = new Shelf<Magazine>();
+// magazines.forEach(m => magazineShelf.add(m));
+// console.log(magazineShelf.getFirst());
 
-//Task 20
-magazineShelf.printTitles();
-console.log(magazineShelf.find("Five Points"));
+// //Task 20
+// magazineShelf.printTitles();
+// console.log(magazineShelf.find("Five Points"));
+
+// Task 23
+// const flib: UniversityLibrarian = new UniversityLibrarian();
+// flib.assistFaculty = () => console.log(`ksjdlkfjs`);
+// flib.teachCommunity = () => console.log(`ksjdlkfjs`);
+
+//Task 24
+// const encyclopedia = new Encyclopedia('Wikipedia', 2019, 5);
+// encyclopedia.printItem();
+//Task 25
+// encyclopedia.printItem2("hello");
+//Task 26
+// encyclopedia.copies = 5;
+// encyclopedia.copies = -1;
+
+//Task 26
+// const flib: UniversityLibrarian = new UniversityLibrarian();
+// flib.name = "Anna";
+// flib.assistCustomer("Boris");
+
