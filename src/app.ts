@@ -185,7 +185,8 @@ const favoriteLibrarian: Librarian = {
 const favoritLibrarian: Librarian = new UniversityLibrarian();
 favoritLibrarian.name = "Anna";
 favoritLibrarian.assistCustomer("Boris");
-
+favoritLibrarian["printLibrarian"]();
+console.log(favoritLibrarian);
 // Task 11
 // const ref: ReferenceItem = new ReferenceItem(ReferenceItem title", 2019);
 // ref.printItem();
