@@ -5,7 +5,8 @@ import {
   UniversityLibrarian,
   ReferenceItem,
   Encyclopedia as RefBook,
-  Shelf
+  Shelf,
+  Encyclopedia
 } from "./classes";
 
 import { purge } from "./lib/utility-functions";
@@ -182,11 +183,12 @@ const favoriteLibrarian: Librarian = {
 };
 
 // Task 10
-const favoritLibrarian: Librarian = new UniversityLibrarian();
-favoritLibrarian.name = "Anna";
-favoritLibrarian.assistCustomer("Boris");
-favoritLibrarian["printLibrarian"]();
-console.log(favoritLibrarian);
+const favoriteLibrarian2: Librarian = new UniversityLibrarian();
+favoriteLibrarian2.name = "Anna";
+favoriteLibrarian2.assistCustomer("Boris");
+favoriteLibrarian2["printLibrarian"]();
+console.log(favoriteLibrarian2);
+
 // Task 11
 // const ref: ReferenceItem = new ReferenceItem(ReferenceItem title", 2019);
 // ref.printItem();
@@ -252,4 +254,16 @@ magazines.forEach(mag => magazineShelf.add(mag));
 const firstMag: Magazine = magazineShelf.getFirst();
 console.log(firstMag);
 
+// Task 20
 console.log(magazineShelf.find("Five Points"));
+
+// Task 23
+const librarian: UniversityLibrarian = new UniversityLibrarian();
+librarian.assistFaculty = () => console.log(123);
+
+// will be TypeError: Cannot assign to read only property 'teachCommunity'
+// librarian.teachCommunity = () => console.log("456"); 
+
+// Task 24
+const enc = new Encyclopedia("Harry Potter", 2019, 3);
+enc.printItem();

@@ -6,7 +6,9 @@ export function sealed(name: string) {
   };
 }
 
-function logger<TFunction extends Function>(target: TFunction): TFunction {
+export function logger<TFunction extends Function>(
+  target: TFunction
+): TFunction {
   const newConstructor: Function = function() {
     console.log(`Creating new instance`);
     console.log(target.name);
@@ -21,4 +23,29 @@ function logger<TFunction extends Function>(target: TFunction): TFunction {
   return <TFunction>newConstructor;
 }
 
-export { logger };
+export function writable(isWratible: boolean) {
+  return function(
+    target: Object,
+    propertyName: string,
+    descriptor: PropertyDescriptor
+  ) {
+    console.log(`Decorate method: ${propertyName}`);
+    descriptor.writable = isWratible;
+  };
+}
+
+export function timeout(ms: number = 0) {
+  return function(
+    target: Object,
+    propertyName: string,
+    descriptor: PropertyDescriptor
+  ) {
+    const originalMetod = descriptor.value;
+    descriptor.value = function(...args) {
+      setTimeout(() => {
+        originalMetod.apply(this, args);
+      }, ms);
+    };
+    return descriptor;
+  };
+}
