@@ -1,3 +1,4 @@
+// Class decorator
 export function sealed(name: string) {
   return function(target: Function): void {
     console.log(`Sealing the constructor ${name}`);
@@ -6,6 +7,7 @@ export function sealed(name: string) {
   };
 }
 
+// Class decorator
 export function logger<TFunction extends Function>(
   target: TFunction
 ): TFunction {
@@ -23,6 +25,7 @@ export function logger<TFunction extends Function>(
   return <TFunction>newConstructor;
 }
 
+// method decorator
 export function writable(isWratible: boolean) {
   return function(
     target: Object,
@@ -34,6 +37,7 @@ export function writable(isWratible: boolean) {
   };
 }
 
+// method decorator
 export function timeout(ms: number = 0) {
   return function(
     target: Object,
@@ -43,9 +47,52 @@ export function timeout(ms: number = 0) {
     const originalMetod = descriptor.value;
     descriptor.value = function(...args) {
       setTimeout(() => {
-        originalMetod.apply(this, args);
+        return originalMetod.apply(this, args);
+        // or ?
+        // target[propertyName].apply(this.args);
       }, ms);
     };
     return descriptor;
   };
+}
+
+// parameter decorator
+export function logParameter(
+  target: Object,
+  methodName: string,
+  paramIndex: number
+): void {
+  console.log(target);
+  console.log(methodName);
+  console.log(paramIndex);
+  const key = `${methodName}_decor_params_indexes`;
+
+  if (Array.isArray(target[key])) {
+    target[key].push(paramIndex);
+  } else {
+    target[key] = [paramIndex];
+  }
+}
+
+// method parameter
+export function logMethod(
+  target: Object,
+  methodName: string,
+  descriptor: PropertyDescriptor
+): PropertyDescriptor {
+  const originalMetod = descriptor.value;
+
+  descriptor.value = function(...args) {
+    const indexes = target[`${methodName}_decor_params_indexes`];
+    Array.isArray(indexes) &&
+      args.forEach((arg, i) => {
+        indexes.includes(i) &&
+          console.log(
+            `Method: ${methodName}, ParamIndex: ${i}, ParamValue: ${arg}`
+          );
+      });
+    return originalMetod.apply(this, args);
+  };
+
+  return descriptor;
 }
