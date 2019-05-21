@@ -269,8 +269,15 @@ function getTitles(param: string | boolean): string[] {
 // enc.printItem();
 
 // Task 25, 26
-const nextLibrarian: UniversityLibrarian = new UniversityLibrarian();
-nextLibrarian.name = "Jack";
-nextLibrarian.assistCustomer("Simon");
+// const nextLibrarian: UniversityLibrarian = new UniversityLibrarian();
+// nextLibrarian.name = "Jack";
+// nextLibrarian.assistCustomer("Simon");
+
+// Task 27
+const nextEnc = new Encyclopedia("Harry Potter", 2019, 3);
+console.log(nextEnc.copies);
+nextEnc.copies = 20;
+console.log(nextEnc.copies);
+nextEnc.copies = -3;
 
 

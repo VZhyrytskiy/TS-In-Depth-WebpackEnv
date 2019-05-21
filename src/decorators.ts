@@ -105,3 +105,20 @@ export function format(pref: string = "Mr./Mrs."): Function {
     makeProperty(target, propName, value => `${pref} ${value}`, value => value);
   };
 }
+
+// accessor decorator
+export function positiveInteger(
+  target: Object,
+  propName: string,
+  descriptor: PropertyDescriptor
+): PropertyDescriptor {
+  const originalSetter = descriptor.set;
+
+  descriptor.set = function(value: number): void {
+    if (value <= 0 || !Number.isInteger(value)) {
+      throw new Error("Invalid value, please assign integer that value > 0");
+    }
+    originalSetter.call(this, value);
+  };
+  return descriptor;
+}
