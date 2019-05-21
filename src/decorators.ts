@@ -1,3 +1,5 @@
+import makeProperty from "./helpers";
+
 // Class decorator
 export function sealed(name: string) {
   return function(target: Function): void {
@@ -43,7 +45,7 @@ export function timeout(ms: number = 0) {
     target: Object,
     propertyName: string,
     descriptor: PropertyDescriptor
-  ) {
+  ): PropertyDescriptor {
     const originalMetod = descriptor.value;
     descriptor.value = function(...args) {
       setTimeout(() => {
@@ -95,4 +97,11 @@ export function logMethod(
   };
 
   return descriptor;
+}
+
+// property decorator
+export function format(pref: string = "Mr./Mrs."): Function {
+  return function(target: Object, propName: string): void {
+    makeProperty(target, propName, value => `${pref} ${value}`, value => value);
+  };
 }

@@ -265,10 +265,12 @@ function getTitles(param: string | boolean): string[] {
 // librarian.teachCommunity = () => console.log("456");
 
 // Task 24
-const enc = new Encyclopedia("Harry Potter", 2019, 3);
-enc.printItem();
+// const enc = new Encyclopedia("Harry Potter", 2019, 3);
+// enc.printItem();
 
-// Task 25
+// Task 25, 26
 const nextLibrarian: UniversityLibrarian = new UniversityLibrarian();
 nextLibrarian.name = "Jack";
 nextLibrarian.assistCustomer("Simon");
+
+
