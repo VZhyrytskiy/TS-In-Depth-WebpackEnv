@@ -9,99 +9,23 @@ import {
   Encyclopedia
 } from "./classes";
 
-import { purge } from "./lib/utility-functions";
+import {
+  purge,
+  showHello,
+  getAllBooks,
+  logFirstAbailable,
+  getBooksTitleOfCategory,
+  logBookTitles,
+  getById,
+  createCustomer,
+  createCustomerId,
+  checkoutBooks,
+  f,
+  getBooksByCategory,
+  logCategorySearch
+} from "./lib/utility-functions";
 
 showHello("greeting", "TypeScript");
-
-function showHello(divName: string, name: string): void {
-  const elt = document.getElementById(divName);
-  elt.innerText = `Hello from ${name}`;
-}
-
-const getAllBooks = (): Book[] => books;
-
-const logFirstAbailable = (books: Book[] = getAllBooks()): void => {
-  const numberOfBooks: number = books.length;
-  let titleFirstAvailable: string = "";
-  for (const book of books) {
-    if (book.available) {
-      titleFirstAvailable = book.title;
-      break;
-    }
-  }
-  console.log(`Total Books ${numberOfBooks}`);
-  console.log(`Total of First Available Books ${titleFirstAvailable}`);
-};
-
-const getBooksTitleOfCategory = (category: Category): Array<string> => {
-  const books: Book[] = getAllBooks();
-  const titles: string[] = [];
-
-  for (const book of books) {
-    if (book.category === category) {
-      titles.push(book.title);
-    }
-  }
-  return titles;
-};
-
-const logBookTitles = (titles: string[]): void => {
-  for (const title of titles) {
-    console.log(title);
-  }
-};
-
-const getById = (id: number): Book | undefined => {
-  const books = getAllBooks();
-  return books.find(book => book.id === id);
-};
-
-const createCustomerId = (name: string, id: number): string => `${name} ${id}`;
-
-const createCustomer = (name: string, age?: number, city?: string): void => {
-  console.log(`customer ${name}`);
-  age && console.log(`Age ${age}`);
-  city && console.log(`City ${city}`);
-};
-
-const checkoutBooks = (customer: string, ...booksIds: number[]): string[] => {
-  console.log(`Customer name: ${customer}`);
-
-  const titles: string[] = [];
-
-  for (let id of booksIds) {
-    const book = getById(id);
-    if (book && book.available) {
-      titles.push(book.title);
-    }
-  }
-  return titles;
-};
-
-// args with "tuple" type
-const f = (...args: [number, string]): void => {
-  console.log(args[0]);
-  console.log(args[1]);
-};
-
-// Function Overloading
-function getTitles(author: string): string[];
-function getTitles(available: boolean): string[];
-function getTitles(param: string | boolean): string[] {
-  const books = getAllBooks();
-  switch (typeof param) {
-    case "string": {
-      return books
-        .filter(book => book.author === param)
-        .map(book => book.title);
-    }
-    case "boolean": {
-      return books
-        .filter(book => book.available === param)
-        .map(book => book.title);
-    }
-  }
-}
 
 // const printBook = (book: Book): void => {
 //   console.log(`${book.title} by ${book.author}`);
@@ -274,10 +198,12 @@ function getTitles(param: string | boolean): string[] {
 // nextLibrarian.assistCustomer("Simon");
 
 // Task 27
-const nextEnc = new Encyclopedia("Harry Potter", 2019, 3);
-console.log(nextEnc.copies);
-nextEnc.copies = 20;
-console.log(nextEnc.copies);
-nextEnc.copies = -3;
+// const nextEnc = new Encyclopedia("Harry Potter", 2019, 3);
+// console.log(nextEnc.copies);
+// nextEnc.copies = 20;
+// console.log(nextEnc.copies);
+// nextEnc.copies = -3;
 
-
+// Task 28
+// getBooksByCategory(Category.JavaScript, logCategorySearch);
+getBooksByCategory(Category.Software, logCategorySearch);
