@@ -23,7 +23,8 @@ import {
   f,
   getBooksByCategory,
   logCategorySearch,
-  getBooksByCategoryPromise
+  getBooksByCategoryPromise,
+  logSearchResults
 } from "./lib/utility-functions";
 
 showHello("greeting", "TypeScript");
@@ -211,17 +212,23 @@ showHello("greeting", "TypeScript");
 
 // Task 29
 
-const successCallback = (categories: string[]): number => {
-  categories.forEach(category => console.log(category));
-  return categories.length;
-};
-const errorCallback = (err:Error): void => console.log(err.message);
+// const successCallback = (categories: string[]): number => {
+//   categories.forEach(category => console.log(category));
+//   return categories.length;
+// };
+// const errorCallback = (err:Error): void => console.log(err.message);
 
-const getBooksByCategoryPromiseCaller = (category: Category): void => {
-  getBooksByCategoryPromise(category)
-    .then(successCallback)
-    .catch(errorCallback);
-};
+// const getBooksByCategoryPromiseCaller = (category: Category): void => {
+//   getBooksByCategoryPromise(category)
+//     .then(successCallback)
+//     .catch(errorCallback);
+// };
 
-getBooksByCategoryPromiseCaller(Category.JavaScript);
-getBooksByCategoryPromiseCaller(Category.Software);
+// getBooksByCategoryPromiseCaller(Category.JavaScript);
+// getBooksByCategoryPromiseCaller(Category.Software);
+
+// Task 30
+
+console.log("Beginning search...");
+logSearchResults(Category.JavaScript).catch(reason => console.log(reason));
+console.log("Search submitted...");
