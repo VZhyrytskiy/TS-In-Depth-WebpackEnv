@@ -127,3 +127,20 @@ export const logCategorySearch: LibMgrCallback = (err, titles): void => {
   if (err) console.log(err.message);
   else titles.forEach(title => console.log(title));
 };
+
+export function getBooksByCategoryPromise(
+  category: Category
+): Promise<string[]> {
+  const promise: Promise<string[]> = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const titles: string[] = getBooksTitleOfCategory(category);
+
+      if (titles.length > 0) {
+        resolve(titles);
+      } else {
+        reject(new Error("No Books Found"));
+      }
+    }, 2000);
+  });
+  return promise;
+}

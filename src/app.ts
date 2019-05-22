@@ -22,7 +22,8 @@ import {
   checkoutBooks,
   f,
   getBooksByCategory,
-  logCategorySearch
+  logCategorySearch,
+  getBooksByCategoryPromise
 } from "./lib/utility-functions";
 
 showHello("greeting", "TypeScript");
@@ -206,4 +207,21 @@ showHello("greeting", "TypeScript");
 
 // Task 28
 // getBooksByCategory(Category.JavaScript, logCategorySearch);
-getBooksByCategory(Category.Software, logCategorySearch);
+// getBooksByCategory(Category.Software, logCategorySearch);
+
+// Task 29
+
+const successCallback = (categories: string[]): number => {
+  categories.forEach(category => console.log(category));
+  return categories.length;
+};
+const errorCallback = (err:Error): void => console.log(err.message);
+
+const getBooksByCategoryPromiseCaller = (category: Category): void => {
+  getBooksByCategoryPromise(category)
+    .then(successCallback)
+    .catch(errorCallback);
+};
+
+getBooksByCategoryPromiseCaller(Category.JavaScript);
+getBooksByCategoryPromiseCaller(Category.Software);
